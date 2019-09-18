@@ -4,13 +4,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Binder;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewStub;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.exia.base.base.ActivityCollector;
 
@@ -60,7 +64,8 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected void setupViews() {
-        tranSparentStatusBar();
+//        tranSparentStatusBar();
+        setTransparent(this);
     }
 
     /**
@@ -71,6 +76,17 @@ public class BaseActivity extends AppCompatActivity {
             decorview.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
 //            decorview.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             getWindow().setStatusBarColor(Color.TRANSPARENT);
+    }
+
+    public static void setTransparent(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            activity.getWindow().setStatusBarColor(Color.TRANSPARENT);
+            activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        } else {
+            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
     }
 
 
@@ -98,75 +114,75 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-//    protected void showLoadErrorView(String tip){
-//        if(loadErrorView != null){
-//            loadErrorView.setVisibility(View.VISIBLE);
-//            return;
-//        }
-//        ViewStub viewStub = findViewById(R.id.loaderrorview);
-//        if(viewStub != null){
-//            loadErrorView = viewStub.inflate();
-//            TextView textView = loadErrorView.findViewById(R.id.error_text);
-//            textView.setText(tip);
-//        }
-//    }
-//
-//    protected void showNoContentView(String tip){
-//        if(noContentView != null){
-//            noContentView.setVisibility(View.VISIBLE);
-//        }
-//        ViewStub viewStub = findViewById(R.id.nocontentview);
-//        if(viewStub != null){
-//            noContentView = viewStub.inflate();
-//            TextView view = noContentView.findViewById(R.id.no_content_text);
-//            view.setText(tip);
-//        }
-//    }
-//
-//    protected void showBadNetWorkView(String tip){
-//        if(badNetworkView != null){
-//            noContentView.setVisibility(View.VISIBLE);
-//        }
-//        ViewStub viewStub = findViewById(R.id.badnetworkview);
-//        if(viewStub != null){
-//            badNetworkView = viewStub.inflate();
-//            TextView view = badNetworkView.findViewById(R.id.bad_network_text);
-//            view.setText(tip);
-//        }
-//    }
-//
-//    protected void showLoadingView(){
-//        if(loadingView != null){
-//            loadingView.setVisibility(View.VISIBLE);
-//        }
-//        ViewStub viewStub = findViewById(R.id.loadingview);
-//        if(viewStub != null){
-//            loadingView = viewStub.inflate();
-//        }
-//    }
-//
-//    protected void hideLoadErrorView(){
-//        if(loadErrorView != null){
-//            loadErrorView.setVisibility(View.INVISIBLE);
-//        }
-//    }
-//
-//    protected void hideNoContentView(){
-//        if(noContentView != null){
-//            noContentView.setVisibility(View.INVISIBLE);
-//        }
-//    }
-//
-//    protected void hideBadNetWorkView(){
-//        if(badNetworkView != null){
-//            badNetworkView.setVisibility(View.INVISIBLE);
-//        }
-//    }
-//
-//    protected void hideLoadingView(){
-//        if(loadingView != null){
-//            loadingView.setVisibility(View.INVISIBLE);
-//        }
-//    }
+    protected void showLoadErrorView(String tip){
+        if(loadErrorView != null){
+            loadErrorView.setVisibility(View.VISIBLE);
+            return;
+        }
+        ViewStub viewStub = findViewById(R.id.loaderrorview);
+        if(viewStub != null){
+            loadErrorView = viewStub.inflate();
+            TextView textView = loadErrorView.findViewById(R.id.error_text);
+            textView.setText(tip);
+        }
+    }
+
+    protected void showNoContentView(String tip){
+        if(noContentView != null){
+            noContentView.setVisibility(View.VISIBLE);
+        }
+        ViewStub viewStub = findViewById(R.id.nocontentview);
+        if(viewStub != null){
+            noContentView = viewStub.inflate();
+            TextView view = noContentView.findViewById(R.id.no_content_text);
+            view.setText(tip);
+        }
+    }
+
+    protected void showBadNetWorkView(String tip){
+        if(badNetworkView != null){
+            noContentView.setVisibility(View.VISIBLE);
+        }
+        ViewStub viewStub = findViewById(R.id.badnetworkview);
+        if(viewStub != null){
+            badNetworkView = viewStub.inflate();
+            TextView view = badNetworkView.findViewById(R.id.bad_network_text);
+            view.setText(tip);
+        }
+    }
+
+    protected void showLoadingView(){
+        if(loadingView != null){
+            loadingView.setVisibility(View.VISIBLE);
+        }
+        ViewStub viewStub = findViewById(R.id.loadingview);
+        if(viewStub != null){
+            loadingView = viewStub.inflate();
+        }
+    }
+
+    protected void hideLoadErrorView(){
+        if(loadErrorView != null){
+            loadErrorView.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    protected void hideNoContentView(){
+        if(noContentView != null){
+            noContentView.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    protected void hideBadNetWorkView(){
+        if(badNetworkView != null){
+            badNetworkView.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    protected void hideLoadingView(){
+        if(loadingView != null){
+            loadingView.setVisibility(View.INVISIBLE);
+        }
+    }
 
 }

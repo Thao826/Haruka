@@ -3,11 +3,42 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <TextView
-            android:id="@+id/tv_show"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="koga"/>
 
+    <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?actionBarSize"
+            android:fitsSystemWindows="true"/>
+
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar_main"/>
+
+
+    <ViewStub
+            android:id="@+id/loaderrorview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout="@layout/load_error_view"/>
+
+    <ViewStub
+            android:id="@+id/nocontentview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout="@layout/no_content_view"/>
+
+    <ViewStub
+            android:id="@+id/badnetworkview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout="@layout/bad_network_view"/>
+
+    <ViewStub
+            android:id="@+id/loadingview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout="@layout/loading_view"/>
 </RelativeLayout>
